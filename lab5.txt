@@ -1,0 +1,16 @@
+Microsoft Windows [Version 10.0.18363.1256]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\artak>aws sns create-topic --name Lab5
+{
+    "TopicArn": "arn:aws:sns:us-east-1:810661096819:Lab5"
+}
+
+
+C:\Users\artak>aws sns subscribe --topic-arn arn:aws:sns:us-east-1:810661096819:Lab5 --protocol email --notification-endpoint artaksin@gmail.com
+{
+    "SubscriptionArn": "pending confirmation"
+}
+
+
+C:\Users\artak>aws cloudwatch put-metric-alarm --alarm-name StatusCheck --alarm-description "Lab5HealthStatus" --metric-name HealthyHostCount --namespace AWS/ApplicationELB --statistic Minimum --dimensions Name=LoadBalancer,Value=app/Lab4/014cb9f661321505 Name=TargetGroup,Value=targetgroup/Lab4-Target-Group/2a9bdda24e94361b --unit Count --period 300 --threshold 2 --evaluation-periods 2 --comparison-operator LessThanThreshold --alarm-actions  arn:aws:sns:us-east-1:810661096819:Lab5
